@@ -18,22 +18,25 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_USER}/${IMAGE_NAME}:${TAG} ."
+                // Changed from 'sh' to 'bat' for Windows compatibility
+                bat "docker build -t %DOCKER_USER%/%IMAGE_NAME%:%TAG% ."
             }
         }
         
         stage('Push to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: "${CRED_ID}", passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh "echo \$PASS | docker login -u \$USER --password-stdin"
-                    sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:${TAG}"
+                    // Windows batch alternative to log into Docker and push
+                    bat "echo %PASS% | docker login -u %USER% --password-stdin"
+                    bat "docker push %DOCKER_USER%/%IMAGE_NAME%:%TAG%"
                 }
             }
         }
         
         stage('Deploy to Kubernetes') {
             steps {
-                sh "kubectl apply -f k8s/invoice-v1.yaml"
+                // Changed from 'sh' to 'bat'
+                bat "kubectl apply -f k8s/invoice-v1.yaml"
             }
         }
     }
