@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         // Replace with your actual Docker Hub username
-        DOCKER_USER = 'yourdockerhubusername'
+        DOCKER_USER = 'sanguptha'
         IMAGE_NAME  = 'invoice-system'
         TAG         = 'v1'
 
