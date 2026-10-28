@@ -19,7 +19,7 @@ spec:
   spec:
     containers:
     - name: invoice-app
-      image: yourdockerhubusername/invoice-system:v1
+      image: sanguptha/invoice-system:v1
       imagePullPolicy: Always
       ports:
       - containerPort: 80
